@@ -1,53 +1,51 @@
-# GEN-AI
+# 🔎 LangChain Search Engine Chatbot  
+A Streamlit-powered intelligent chatbot that performs real-time web search using **LangChain**, **Groq LLM**, **DuckDuckGo**, **Wikipedia**, and **Arxiv**.  
+The chatbot uses a LangChain agent to decide which tool to use based on the user query and streams results back interactively.
 
-# Create python virtual environment
-```
-python -m venv venv
-```
-Activate the environment
-1. Windows (Command Prompt / PowerShell)
-```
-venv\Scripts\activate
-```
-2. macOS / Linux
-```
-source venv/bin/activate
-```
+---
 
-Deactive the enviroment
-```
-deactivate
-```
-To install package in venv
-```
-pip install package
-```
-To uninstall package in vevn
-```
-pip uninstall package
-```
-To Save the dependencies
-```
-pip freeze > requirements.txt
-```
-To install requirements.txt
-```
-pip install -r requirements.txt
-```
+## 🚀 Features
 
-# Create .env file to save API keys
-```
-OPENAI_API_KEY="*****"
-LANGCHAIN_API_KEY="*****"
-LANGCHAIN_PROJECT="*****"
-HUGGING_FACE_TOKEN="*****"
-GROQ_API_KEY="*****"
-```
+- **Search-enabled chatbot** capable of:
+  - 🔍 DuckDuckGo internet search  
+  - 📚 Wikipedia lookup  
+  - 🧪 Arxiv research paper search  
+- **Groq LLM integration** using the `llama-3.1-8b-instant` model  
+- **Streamed responses** inside an interactive chat UI  
+- **Memory support** using Streamlit session state  
+- **Safe error handling**  
+  - Missing API key  
+  - Search tool errors  
+  - LLM initialization errors  
+- Clean, user-friendly interface built with Streamlit  
 
-# To use Ollama models
-* Download the setup file from Ollama site. Run the setup file, to install application locally. Use command prompt (Use as administator) to check if Ollama is installed by running `ollama --version`. Download the opensource model in Command Prompt. To see the different models, visit Ollama site or github page.
+---
 
-# To run the streamlit app.py file
-```
-streamlit run "path_to_file"
-```
+## 🧠 How It Works
+
+The chatbot uses a **LangChain Zero-Shot ReAct Agent** which:  
+1. Reads the user input  
+2. Decides which tool (Wikipedia, Arxiv, DuckDuckGo) is best  
+3. Fetches external information  
+4. Uses the Groq LLM to produce a final answer  
+5. Displays streaming intermediate thoughts in Streamlit (via `StreamlitCallbackHandler`)  
+
+This creates a powerful cognitive workflow that combines search + AI reasoning.
+
+---
+
+## 📦 Tech Stack
+
+- **Python 3.12+**
+- **Streamlit**
+- **LangChain Classic**
+- **LangChain Community Tools**
+- **Groq LLM API** (LLaMA 3.1 8B Instant)
+- **DuckDuckGo Search**
+- **Wikipedia API**
+- **Arxiv API**
+
+---
+
+## 📁 Project Structure
+
