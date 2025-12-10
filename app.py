@@ -7,12 +7,6 @@ from langchain_community.utilities import WikipediaAPIWrapper, ArxivAPIWrapper
 from langchain_classic.agents import AgentType, initialize_agent
 from langchain_classic.callbacks import StreamlitCallbackHandler
 from langchain_groq import ChatGroq
-# from langchain_huggingface import HuggingFaceEmbeddings
-
-# Loading environment variable
-# groq_api_key=os.getenv('GROQ_API_KEY')
-# os.environ['HF_TOKEN']=os.getenv('HF_TOKEN')
-# embeddings = HuggingFaceEmbeddings(model="all-MiniLM-L6-v2")
 
 # Arxiv and wikipedia tools
 arxiv_wrapper = ArxivAPIWrapper(top_k_results=1, doc_content_chars_max=200)
@@ -51,82 +45,36 @@ if prompt:=st.chat_input(placeholder="What is machine learning?"):
     st.session_state.messages.append({"role":"user", "content":prompt})
     st.chat_message("user").write(prompt)
 
-    llm = ChatGroq(groq_api_key=api_key,
-                   model='llama-3.1-8b-instant', 
-                   streaming=True, 
-                   tool_choice="none")
-    tools = [search, arxiv, wiki]
-
-    search_agent = initialize_agent(tools=tools, 
-                                    llm=llm,
-                                    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-                                    handling_parsing_errors=True)
+    try: 
+        llm = ChatGroq(groq_api_key=api_key,
+                    model='llama-3.1-8b-instant', 
+                    streaming=True, 
+                    tool_choice="none")
+    except Exception as e:
+        st.session_state.messages.append({'role': 'assistant', 'content': "There was an error with the Groq API. Please check your API key or try again later."})
+        st.write("Error: There was an error with the Groq API. Please check your API key or try again later.")
+        llm = None
     
-    with st.chat_message("assistant"):
-        st_cb = StreamlitCallbackHandler(st.container(),
-                                         expand_new_thoughts=False)
-        response = search_agent.run(st.session_state.messages, callbacks=[st_cb])
-        st.session_state.messages.append({'role':'assistant',
-                                          'content':response})
-        st.write(response)
+    if llm:
+        tools = [search, arxiv, wiki]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        search_agent = initialize_agent(tools=tools, 
+                                        llm=llm,
+                                        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+                                        handling_parsing_errors=True)
+        try:
+            with st.chat_message("assistant"):
+                st_cb = StreamlitCallbackHandler(st.container(),
+                                                expand_new_thoughts=False)
+                response = search_agent.run(st.session_state.messages, callbacks=[st_cb])
+                st.session_state.messages.append({'role':'assistant',
+                                                'content':response})
+                st.write(response)
+        except Exception as e:
+            error_message = str(e)
+            st.session_state.messages.append({
+            'role': 'assistant',
+            'content': f"⚠️ Error initializing Groq API: {error_message}"
+            })
+            st.chat_message("assistant").write(f"⚠️ Error initializing Groq API: {error_message}")
+        
