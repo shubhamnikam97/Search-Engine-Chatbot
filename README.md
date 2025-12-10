@@ -48,4 +48,31 @@ This creates a powerful cognitive workflow that combines search + AI reasoning.
 ---
 
 ## 📁 Project Structure
+.
+├── app.py # Main Streamlit application
+├── requirements.txt # Python dependencies
+└── README.md # Documentation
 
+---
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+
+Create a virtual environment
+python -m venv venv
+source venv/bin/activate   # macOS/Linux
+venv\Scripts\activate      # Windows
+
+Install dependencies
+pip install -r requirements.txt
+
+Add your Groq API Key
+Via Streamlit sidebar
+When the app runs, enter your key in the sidebar field:
+
+Running the App
+streamlit run "path/app.py"
