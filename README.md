@@ -48,11 +48,12 @@ This creates a powerful cognitive workflow that combines search + AI reasoning.
 ---
 
 ## 📁 Project Structure
-
+```
 .
 ├── app.py # Main Streamlit application
 ├── requirements.txt # Python dependencies
 └── README.md # Documentation
+```
 
 ---
 
@@ -84,4 +85,5 @@ When the app runs, enter your key in the sidebar field:
 ```bash
 streamlit run "path/app.py"
 ```
+
 
