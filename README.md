@@ -3,7 +3,11 @@ A Streamlit-powered intelligent chatbot that performs real-time web search using
 The chatbot uses a LangChain agent to decide which tool to use based on the user query and streams results back interactively.
 
 ---
+## 🌐 Live Demo
+👉 **Try the app here:** 
+https://search-engine-chatbot-kdc8bxddbno3rqbmpxd5nc.streamlit.app/
 
+---
 ## 🚀 Features
 
 - **Search-enabled chatbot** capable of:
@@ -85,5 +89,6 @@ When the app runs, enter your key in the sidebar field:
 ```bash
 streamlit run "path/app.py"
 ```
+
 
 
